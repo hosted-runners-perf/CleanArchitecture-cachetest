@@ -1,31 +1,25 @@
 name: Build
+
 on:
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
-    services:
-      sql:
-        image: mcr.microsoft.com/mssql/server
-        ports:
-          - 1433:1433
-        env:
-          SA_PASSWORD: Your_password123
-          ACCEPT_EULA: Y
+    runs-on: ${{ matrix.os }}
+    strategy:
+        matrix:
+            os:
+                - ubuntu-latest
+                - macos-latest
+                - windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
     - name: Restore
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore --configuration Release
-    - name: Test
-      run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
-      env:
-        ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureDb-Test;User=sa;Password=Your_password123;MultipleActiveResultSets=true;Encrypt=false;
