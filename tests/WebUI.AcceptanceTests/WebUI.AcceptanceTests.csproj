@@ -6,6 +6,7 @@
       <AssemblyName>CleanArchitecture.WebUI.AcceptanceTests</AssemblyName>
       <Nullable>enable</Nullable>
       <ImplicitUsings>enable</ImplicitUsings>
+      <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
