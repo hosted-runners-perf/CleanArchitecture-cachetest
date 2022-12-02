@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@309ea6168cc717f9cee1941ab753b5889048ba47
     - name: Restore
       run: dotnet restore
     - name: Build
